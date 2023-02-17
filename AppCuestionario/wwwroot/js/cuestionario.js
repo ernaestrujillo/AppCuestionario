@@ -193,6 +193,14 @@ function FinCuestionario() {
 
 }
 
+function eliminarRespuestas(preguntaID) {    
+    const objWithIdIndex = respuestas.findIndex((obj) => obj.preguntaID == preguntaID);
+
+    if (objWithIdIndex > -1) {
+        respuestas.splice(objWithIdIndex, 1);
+    }       
+ }
+
 function obtenerCuestionario() {
     $.get(urlObtenerCuestionario).done(function (data) {
         cuestionario = data;
@@ -208,6 +216,7 @@ function obtenerCuestionario() {
             MoverXPregunta(pregunta);
             avance = pregunta.preguntaID;
             avancePregunta.pop();
+            eliminarRespuestas(pregunta.preguntaID);
             CalculoProgreso();
         });
 
