@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Cuestionario>
+
+<div class="text-center" style="margin-top:100px;">
+    <div class="my-3 p-4 bg-white rounded shadow-sm" >
+        
+        <h1 >Bienvenido</h1>
+        <select id="sltCuestionario" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+          <option disabled selected value="">Selecciona un cuestionario</option>
+          @foreach(var cue in Model){
+            <option value="@(cue.CuestionarioID)">@(cue.Nombre)</option>     
+          }
+        </select>
+        <button type="button" id="btnIniciar" disabled class="btn btn-primary btn-lg">Iniciar</button>
+    </div>
+</div>
+
+<script>
+var urlIniciar = "@(Url.Action("Cuestionario"))";
+
+function iniciar() {
+    let CuestionarioID = $("#sltCuestionario").val();
+    if (CuestionarioID != "") {
+        document.location.href = urlIniciar + "/" + CuestionarioID;
+    } else {
+        msgNotificacion(4, "No hay un cuestionario seleccionado");
+    }
+}
+
+$(document).ready(() => {
+    $('#sltCuestionario').on('change', function() {
+         let btnEnabled = $(this).val() != "" ? false : true;
+          $('#btnIniciar').prop('disabled', btnEnabled);
+    });
+
+    $("#btnIniciar").on('click', function() {
+        iniciar();
+    })
+})
+</script>

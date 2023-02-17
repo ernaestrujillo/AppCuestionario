@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Cuestionario
+
+
+
+<div id="#cuestionario">
+    <div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">   
+        <div class="lh-1">
+            <div class="display-6 mb-0 text-white lh-1" id="nombreCuestionario"></div>
+            <div class="fs-5 mb-0 text-white lh-1" style="margin-top:15px;margin-left:5px;" id="tituloCuestionario"></div>      
+        </div>
+    </div>
+    <div class="progress" style="margin-top:20px;margin-bottom:20px;height:30px;">
+        <div id="progreso" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+    </div>
+    <div class="card shadow-sm d-none" style="margin:20px;" id="fin">
+        <div class="card-header text-center">
+            <h4>Cuestionario Finalizado</h4>
+        </div>
+        <div class="card-body fs-5 text-center" style="padding:50px;">    
+                <img src="~/img/finaliza.webp" title="finaliza" width="300"/>                   
+                <h4>Gracias por compartir tu valiosa opinión.</h4>
+                 <div class="text-center" style="margin-top:20px;">
+                    <button type="button" class="btn btn-success btn-lg" id="btnReload">Iniciar un cuestionario nuevo</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="btnDownload"  >Descarga a Excel</button>
+                </div>
+        </div>
+    </div>
+    <div class="secciones pricing-header p-3 pb-md-4 mx-auto text-center" >
+        <h1 class="display-6 fw-normal" id="seccionTitulo"></h1>                          
+    </div>
+    <div id="msgError"></div>
+    <div id="secciones"></div>
+</div>
+
+<script>
+    var urlObtenerCuestionario = "@(Url.Action("CuestionarioPorID","Home",new {id=Model.CuestionarioID}))";
+    var urlGuardar = "@(Url.Action("GuardarCuestionario"))";
+    var urlDownload = "@(Url.Action("ExportarExcel"))";
+    var cuestionario = {};
+    var secciones = [];
+    var preguntas = [];
+    var preguntaActual = {};
+    var preguntaAnterior = {};
+    var respuestas = [];
+    var total = 0;
+    var avance = 0;
+    var avancePregunta = [];
+    var registro = 0;
+</script>
+
+<script src="~/js/cuestionario.js" asp-append-version="true"></script>
